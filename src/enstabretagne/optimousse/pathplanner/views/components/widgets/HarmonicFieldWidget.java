@@ -15,10 +15,19 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
     /**
      * Creates new form HarmonicFieldWidget
      */
+    
+    private FieldPanel fieldPanel;
+    
     public HarmonicFieldWidget() {
         initComponents();
+        fieldPanel=new FieldPanel(fieldContainer.getWidth(), fieldContainer.getHeight());
+        fieldContainer.add(fieldPanel);
     }
 
+    public FieldPanel getFieldPanel(){
+        return this.fieldPanel;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +44,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
         convergenceSlider = new javax.swing.JSlider();
         nbOfIterationRadioButton = new javax.swing.JRadioButton();
         nbOfIterationSlider = new javax.swing.JSlider();
-        FieldContainer = new javax.swing.JPanel();
+        fieldContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,14 +89,14 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
 
         nbOfIterationSlider.setEnabled(false);
 
-        javax.swing.GroupLayout FieldContainerLayout = new javax.swing.GroupLayout(FieldContainer);
-        FieldContainer.setLayout(FieldContainerLayout);
-        FieldContainerLayout.setHorizontalGroup(
-            FieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout fieldContainerLayout = new javax.swing.GroupLayout(fieldContainer);
+        fieldContainer.setLayout(fieldContainerLayout);
+        fieldContainerLayout.setHorizontalGroup(
+            fieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
         );
-        FieldContainerLayout.setVerticalGroup(
-            FieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        fieldContainerLayout.setVerticalGroup(
+            fieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 311, Short.MAX_VALUE)
         );
 
@@ -105,7 +114,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
                 .addComponent(nbOfIterationRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nbOfIterationSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(FieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +127,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
                     .addComponent(nbOfIterationRadioButton)
                     .addComponent(nbOfIterationSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(fieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,11 +215,11 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel FieldContainer;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JRadioButton convergenceRadioButton;
     private javax.swing.JSlider convergenceSlider;
+    private javax.swing.JPanel fieldContainer;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JRadioButton nbOfIterationRadioButton;
     private javax.swing.JSlider nbOfIterationSlider;

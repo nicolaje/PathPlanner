@@ -39,7 +39,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="nbOfIterationSlider" max="32767" attributes="0"/>
           </Group>
-          <Component id="FieldContainer" max="32767" attributes="0"/>
+          <Component id="fieldContainer" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -55,7 +55,7 @@
                   <Component id="nbOfIterationSlider" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="FieldContainer" max="32767" attributes="0"/>
+              <Component id="fieldContainer" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,12 +106,12 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="FieldContainer">
+    <Container class="javax.swing.JPanel" name="fieldContainer">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="557" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
