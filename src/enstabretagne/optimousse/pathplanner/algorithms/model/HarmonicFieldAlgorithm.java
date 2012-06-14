@@ -4,6 +4,7 @@
  */
 package enstabretagne.optimousse.pathplanner.algorithms.model;
 
+import enstabretagne.optimousse.pathplanner.algorithms.controllers.HarmonicAlgorithmController;
 import enstabretagne.optimousse.pathplanner.settings.AbstractSettings;
 import enstabretagne.optimousse.pathplanner.views.components.popups.HarmonicFieldPopUp;
 
@@ -15,7 +16,9 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel{
 
     public HarmonicFieldAlgorithm(AbstractSettings settings){
         super(settings);
-        new HarmonicFieldPopUp(this);
+        this.controller=new HarmonicAlgorithmController(this);
+        HarmonicFieldPopUp popUp=new HarmonicFieldPopUp(this);
+        this.addObserver(popUp);
     }
     
     @Override

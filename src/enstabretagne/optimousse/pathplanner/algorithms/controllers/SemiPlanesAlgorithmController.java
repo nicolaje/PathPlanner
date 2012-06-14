@@ -50,6 +50,10 @@ public class SemiPlanesAlgorithmController extends AbstractAlgorithmController{
         }
     }
 
+    public void markPressed(){
+        throw new UnsupportedOperationException("Not supported yet");
+    }
+    
     @Override
     public void mousePressed(MouseEvent me) {
     }
@@ -64,6 +68,10 @@ public class SemiPlanesAlgorithmController extends AbstractAlgorithmController{
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+
+    public void undoPressed() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

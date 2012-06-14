@@ -65,4 +65,59 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
     public void mouseExited(MouseEvent me) {
     }
     
+    public void markPressed(){
+        
+    }
+    
+    public void setBorderPressed(){
+        
+    }
+    
+    public void setGoal(){
+        
+    }
+    
+    public void setObstacle(){
+        
+    }
+    
+    public void cleanCurrentSelec(){
+        
+    }
+    
+    public void cleanAllSelec(){
+        
+    }
+    
+    public void cleanGoal(){
+        
+    }
+    
+    public void cleanBorder(){
+        
+    }
+    
+    public void cleanObstacles(){
+        
+    }
+    
+    public void selectionClose(){
+        
+    }
+    
+    public void undo(){
+        
+    }
+    
+    public void openPotentialVisualizationWidget(){
+        
+    }
+    
+    public void openFieldVisualizationWidget(){
+        
+    }
+    
+    public void openObstaclesViewer(){
+        
+    }
 }

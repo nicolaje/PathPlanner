@@ -21,7 +21,8 @@ public class SemiPlanesAlgorithm extends AbstractAlgorithmModel{
     
     public SemiPlanesAlgorithm(AbstractSettings settings){
         super(settings);
-        new SemiPlanePopUp(this);
+        SemiPlanePopUp popUp=new SemiPlanePopUp(this);
+        this.addObserver(popUp);
         path=new ArrayList<Position>();
         controlPoints=new ArrayList<Position>();
         this.controller=new SemiPlanesAlgorithmController(this);

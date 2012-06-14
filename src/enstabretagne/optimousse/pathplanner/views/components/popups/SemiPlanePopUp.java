@@ -38,7 +38,7 @@ public class SemiPlanePopUp extends AbstractPopUp implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                ((SemiPlanesAlgorithmController)controller).markPressed();
             }
         });
         this.add(mark);
@@ -48,9 +48,10 @@ public class SemiPlanePopUp extends AbstractPopUp implements Observer {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                ((SemiPlanesAlgorithmController)controller).undoPressed();
             }
         });
+        this.add(undo);
     }
 
     // TODO : set menuitems visible or not!
