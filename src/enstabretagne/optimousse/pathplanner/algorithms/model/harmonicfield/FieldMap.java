@@ -22,6 +22,8 @@ public class FieldMap {
     public static final char VACUUM='v';
     
     private double stepWidth; // in deg
+    private double width;
+    private double height;
     private char[][] initPlane;
     private float[][] field;
     
@@ -31,22 +33,30 @@ public class FieldMap {
     ArrayList<Position> goal;
     ArrayList<ArrayList<Position>> obstacles;
     
-    private FieldMap(HarmonicFieldAlgorithm algorithm){
+    public FieldMap(HarmonicFieldAlgorithm algorithm, float stepWidth){
         this.border=algorithm.getBorder();
+        this.stepWidth=stepWidth;
+        computeMap();
     }
     
-    public static FieldMap getFieldMono(int interationNb, HarmonicFieldAlgorithm algorithm){
-        MonoThreadHarmonicFieldComputer computer=new MonoThreadHarmonicFieldComputer(interationNb, null, null, null)
-        return 
+    public float[][] getField(){
+        return this.field;
     }
     
-    public static FieldMap getFieldMono(float cvCrit, HarmonicFieldAlgorithm algorithm){
+    /**
+     * V0.1: use only 1 thread
+     */
+    private void computeMap(){
+        setMinMax(border);
         
     }
     
-    public static FieldMap getFieldMono(HarmonicFieldAlgorithm algorithm){
-        
+    private void setMinMax(ArrayList<Position> border){
+        for(Position p:border){
+            if(p.getLatitude().degrees<minLat)minLat=(float) p.getLatitude().degrees;
+            if(p.getLatitude().degrees>maxLat)maxLat=(float) p.getLatitude().degrees;
+            if(p.getLongitude().degrees<minLon)minLon=(float) p.getLongitude().degrees;
+            if(p.getLongitude().degrees>maxLon)maxLon=(float) p.getLongitude().degrees;            
+        }
     }
-    
-    private 
 }
