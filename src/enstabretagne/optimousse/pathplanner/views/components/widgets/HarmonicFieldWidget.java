@@ -4,13 +4,17 @@
  */
 package enstabretagne.optimousse.pathplanner.views.components.widgets;
 
+import enstabretagne.optimousse.pathplanner.algorithms.model.HarmonicFieldAlgorithm;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Jeremy
  */
-public class HarmonicFieldWidget extends javax.swing.JFrame {
+public class HarmonicFieldWidget extends javax.swing.JFrame implements Observer{
 
     /**
      * Creates new form HarmonicFieldWidget
@@ -22,6 +26,9 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
         initComponents();
         fieldPanel=new FieldPanel(fieldContainer.getWidth(), fieldContainer.getHeight());
         fieldContainer.add(fieldPanel);
+        fieldContainer.setBackground(Color.red);
+        fieldPanel.setVisible(true);
+        pack();
     }
 
     public FieldPanel getFieldPanel(){
@@ -47,6 +54,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
         fieldContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -89,16 +97,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
 
         nbOfIterationSlider.setEnabled(false);
 
-        javax.swing.GroupLayout fieldContainerLayout = new javax.swing.GroupLayout(fieldContainer);
-        fieldContainer.setLayout(fieldContainerLayout);
-        fieldContainerLayout.setHorizontalGroup(
-            fieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
-        );
-        fieldContainerLayout.setVerticalGroup(
-            fieldContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
-        );
+        fieldContainer.setLayout(new javax.swing.BoxLayout(fieldContainer, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +126,7 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
                     .addComponent(nbOfIterationRadioButton)
                     .addComponent(nbOfIterationSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(fieldContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,4 +223,10 @@ public class HarmonicFieldWidget extends javax.swing.JFrame {
     private javax.swing.JRadioButton nbOfIterationRadioButton;
     private javax.swing.JSlider nbOfIterationSlider;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        fieldPanel.update(((HarmonicFieldAlgorithm)o));
+        fieldPanel.test();
+    }
 }

@@ -25,6 +25,10 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
     public static final int STATE_SET_GOAL = 2;
     public static final int STATE_ADD_OBSTACLE = 3;
     public static final int MARK_POINT=4;
+    public static final int OBSTACLE_ADDED=5;
+    public static final int BORDER_SET=6;
+    public static final int GOAL_SET=7;
+    
     private int currentState;
     private ArrayList<Position> border;
     private ArrayList<Position> goal;
@@ -123,6 +127,7 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
                 o.setInteriorOpacity(0.7d);
                 SurfacePolygon obstacle=new SurfacePolygon(o, currentSelection);
                 polyLines.addRenderable(obstacle);
+                this.obstacles.add(new ArrayList<Position>(currentSelection));
                 setCurrentState(STATE_IDLE);
                 break;
             case STATE_SET_BORDER:
@@ -140,6 +145,7 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
                 a.setInteriorOpacity(0.1d);
                 borderPoly = new SurfacePolygon(a, currentSelection);
                 polyLines.addRenderable(borderPoly);
+                this.border.addAll(currentSelection);
                 setCurrentState(STATE_IDLE);
                 break;
             case STATE_SET_GOAL:
@@ -160,6 +166,7 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
                 b.setInteriorOpacity(0.5d);
                 goalPoly=new SurfacePolygon(b, currentSelection);
                 polyLines.addRenderable(goalPoly);
+                this.goal.addAll(currentSelection);
                 setCurrentState(STATE_IDLE);
                 break;
         }

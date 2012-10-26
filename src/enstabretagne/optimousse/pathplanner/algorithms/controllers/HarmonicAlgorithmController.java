@@ -6,6 +6,7 @@ package enstabretagne.optimousse.pathplanner.algorithms.controllers;
 
 import enstabretagne.optimousse.pathplanner.algorithms.model.AbstractAlgorithmModel;
 import enstabretagne.optimousse.pathplanner.algorithms.model.HarmonicFieldAlgorithm;
+import enstabretagne.optimousse.pathplanner.views.components.widgets.HarmonicFieldWidget;
 import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
 import java.awt.event.MouseEvent;
 
@@ -131,7 +132,9 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
     }
     
     public void openPotentialVisualizationWidget(){
-        
+        HarmonicFieldWidget w=new HarmonicFieldWidget();
+        w.setVisible(true);
+        this.model.addObserver(w);
     }
     
     public void openFieldVisualizationWidget(){
