@@ -15,20 +15,15 @@ import javax.swing.JPopupMenu;
  */
 public abstract class AbstractPopUp extends JPopupMenu implements Observer{
     
-    private AbstractAlgorithmModel model;
+    protected AbstractAlgorithmModel model;
     protected AbstractAlgorithmController controller;
     
     public AbstractPopUp(AbstractAlgorithmModel model){
         this.model=model;
-        System.out.println("model");
         this.controller=model.getController();
-        System.out.println("controller");
         model.getView().addMouseListener(new PopListener(this));
-        System.out.println("addmouselist");
         buildMenu();
-        System.out.println("build");
         model.addObserver(this);
-        System.out.println("addobs");
     }
     
     public AbstractAlgorithmModel getModel(){

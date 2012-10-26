@@ -5,6 +5,7 @@
 package enstabretagne.optimousse.pathplanner.algorithms.controllers;
 
 import enstabretagne.optimousse.pathplanner.algorithms.model.AbstractAlgorithmModel;
+import enstabretagne.optimousse.pathplanner.algorithms.model.HarmonicFieldAlgorithm;
 import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
 import java.awt.event.MouseEvent;
 
@@ -38,6 +39,21 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
     public void mouseDragged(MouseEvent me) {
         if(me.isControlDown()){
             me.consume();
+            switch(((HarmonicFieldAlgorithm)this.model).getCurrentState()){
+                case HarmonicFieldAlgorithm.STATE_ADD_OBSTACLE:
+                    ((HarmonicFieldAlgorithm)this.model).mark();
+                    break;
+                case HarmonicFieldAlgorithm.STATE_IDLE:
+                    break;
+                case HarmonicFieldAlgorithm.STATE_SET_BORDER:
+                    ((HarmonicFieldAlgorithm)this.model).mark();
+                    break;
+                case HarmonicFieldAlgorithm.STATE_SET_GOAL:
+                    ((HarmonicFieldAlgorithm)this.model).mark();
+                    break;
+                default: System.err.append("Default in Harmonic Controller");
+                    break;
+            }
         }
     }
 
@@ -47,6 +63,9 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
 
     @Override
     public void mouseClicked(MouseEvent me) {
+        if(me.isControlDown()){
+            me.consume();
+        }        
     }
 
     @Override
@@ -70,15 +89,15 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
     }
     
     public void setBorderPressed(){
-        
+        ((HarmonicFieldAlgorithm)this.model).setCurrentState(HarmonicFieldAlgorithm.STATE_SET_BORDER);
     }
     
     public void setGoal(){
-        
+        ((HarmonicFieldAlgorithm)this.model).setCurrentState(HarmonicFieldAlgorithm.STATE_SET_GOAL);
     }
     
     public void setObstacle(){
-        
+        ((HarmonicFieldAlgorithm)this.model).setCurrentState(HarmonicFieldAlgorithm.STATE_ADD_OBSTACLE);
     }
     
     public void cleanCurrentSelec(){
@@ -102,7 +121,9 @@ public class HarmonicAlgorithmController extends AbstractAlgorithmController{
     }
     
     public void selectionClose(){
-        
+        if(((HarmonicFieldAlgorithm)model).getCurrentSelection().size()>3){
+            ((HarmonicFieldAlgorithm)model).close();
+        }
     }
     
     public void undo(){

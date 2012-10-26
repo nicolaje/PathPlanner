@@ -4,7 +4,6 @@
  */
 package enstabretagne.optimousse.pathplanner.views.components.widgets;
 
-import enstabretagne.optimousse.pathplanner.algorithms.model.harmonicfield.FieldMap;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
@@ -21,13 +20,13 @@ public class FieldPanel extends JPanel{
         image= new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_RGB);
     }
     
-    public void makeImageFromField(FieldMap field){
+    public void makeImageFromField(float[][] field){
         // TODO: gradient etc...
         for(int x=0; x<image.getWidth(); x++){
             for(int y=0; y<image.getHeight(); y++){
                 
                 // val are in [-1; 1]
-                float val=field.getField()[(int)((x/image.getWidth())*field.getWidth())][(int)((x/image.getHeight())*(field.getHeight()))];
+                float val=0;//=field.getField()[(int)((x/image.getWidth())*field.getWidth())][(int)((x/image.getHeight())*(field.getHeight()))];
                 val+=1;
                 val/=2;
                 
