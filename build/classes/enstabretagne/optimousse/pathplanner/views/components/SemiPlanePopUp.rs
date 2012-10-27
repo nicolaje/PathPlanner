@@ -1,2 +1,0 @@
-enstabretagne.optimousse.pathplanner.views.components.SemiPlanePopUp
-enstabretagne.optimousse.pathplanner.views.components.PopListener

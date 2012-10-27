@@ -24,11 +24,10 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
     public static final int STATE_SET_BORDER = 1;
     public static final int STATE_SET_GOAL = 2;
     public static final int STATE_ADD_OBSTACLE = 3;
-    public static final int MARK_POINT=4;
-    public static final int OBSTACLE_ADDED=5;
-    public static final int BORDER_SET=6;
-    public static final int GOAL_SET=7;
-    
+    public static final int MARK_POINT = 4;
+    public static final int OBSTACLE_ADDED = 5;
+    public static final int BORDER_SET = 6;
+    public static final int GOAL_SET = 7;
     private int currentState;
     private ArrayList<Position> border;
     private ArrayList<Position> goal;
@@ -67,8 +66,8 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
     }
 
     public void setCurrentState(int state) {
-        currentLine=new Polyline();
-        currentSelection=new ArrayList<Position>();
+        currentLine = new Polyline();
+        currentSelection = new ArrayList<Position>();
         switch (getCurrentState()) {
             case STATE_IDLE:
                 stateIdleTo(state);
@@ -90,23 +89,28 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
     }
 
     private void stateIdleTo(int state) {
-        switch (getCurrentState()) {
+        switch (state) {
             case STATE_ADD_OBSTACLE:
+                obstacles.add(new ArrayList<Position>());
                 break;
             case STATE_SET_BORDER:
+                border = new ArrayList<Position>();
                 break;
             case STATE_SET_GOAL:
+                goal = new ArrayList<Position>();
                 break;
         }
     }
 
     private void stateSetBorderTo(int state) {
-        switch (getCurrentState()) {
+        switch (state) {
             case STATE_ADD_OBSTACLE:
+                obstacles.add(new ArrayList<Position>());
                 break;
             case STATE_IDLE:
                 break;
             case STATE_SET_GOAL:
+                goal = new ArrayList<Position>();
                 break;
         }
     }
@@ -116,22 +120,22 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
 
         switch (getCurrentState()) {
             case STATE_ADD_OBSTACLE:
-                ShapeAttributes o=new BasicShapeAttributes();
+                ShapeAttributes o = new BasicShapeAttributes();
                 o.setOutlineOpacity(0.7d);
                 o.setDrawInterior(true);
                 o.setEnableAntialiasing(true);
                 o.setEnableLighting(true);
-                o.setOutlineStipplePattern((short)128);
+                o.setOutlineStipplePattern((short) 128);
                 o.setOutlineMaterial(new Material(Color.RED));
                 o.setInteriorMaterial(new Material(Color.RED));
                 o.setInteriorOpacity(0.7d);
-                SurfacePolygon obstacle=new SurfacePolygon(o, currentSelection);
+                SurfacePolygon obstacle = new SurfacePolygon(o, currentSelection);
                 polyLines.addRenderable(obstacle);
-                this.obstacles.add(new ArrayList<Position>(currentSelection));
+//                this.obstacles.add(new ArrayList<Position>(currentSelection));
                 setCurrentState(STATE_IDLE);
                 break;
             case STATE_SET_BORDER:
-                if(borderPoly!=null){
+                if (borderPoly != null) {
                     polyLines.removeRenderable(borderPoly);
                 }
                 ShapeAttributes a = new BasicShapeAttributes();
@@ -139,34 +143,34 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
                 a.setDrawInterior(true);
                 a.setEnableAntialiasing(true);
                 a.setEnableLighting(true);
-                a.setOutlineStipplePattern((short)0xDD);
+                a.setOutlineStipplePattern((short) 0xDD);
                 a.setOutlineMaterial(new Material(Color.ORANGE));
                 a.setInteriorMaterial(new Material(Color.ORANGE));
                 a.setInteriorOpacity(0.1d);
                 borderPoly = new SurfacePolygon(a, currentSelection);
                 polyLines.addRenderable(borderPoly);
-                this.border.addAll(currentSelection);
+//                this.border.addAll(currentSelection);
                 setCurrentState(STATE_IDLE);
                 break;
             case STATE_SET_GOAL:
-                
+
                 // If the goal was previously set
                 // clear it
-                if(goalPoly!=null){
+                if (goalPoly != null) {
                     polyLines.removeRenderable(goalPoly);
                 }
-                ShapeAttributes b=new BasicShapeAttributes();
+                ShapeAttributes b = new BasicShapeAttributes();
                 b.setOutlineOpacity(1);
                 b.setDrawInterior(true);
                 b.setEnableAntialiasing(true);
                 b.setEnableLighting(true);
-                b.setOutlineStipplePattern((short)0xDD);
+                b.setOutlineStipplePattern((short) 0xDD);
                 b.setOutlineMaterial(new Material(Color.GREEN));
                 b.setInteriorMaterial(new Material(Color.GREEN));
                 b.setInteriorOpacity(0.5d);
-                goalPoly=new SurfacePolygon(b, currentSelection);
+                goalPoly = new SurfacePolygon(b, currentSelection);
                 polyLines.addRenderable(goalPoly);
-                this.goal.addAll(currentSelection);
+//                this.goal.addAll(currentSelection);
                 setCurrentState(STATE_IDLE);
                 break;
         }
@@ -185,24 +189,37 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
 //        }
         if (wwd.getCurrentPosition() != null) {
             this.currentSelection.add(wwd.getCurrentPosition());
+            this.polyLines.removeRenderable(currentLine);
+            currentLine = new Polyline(this.currentSelection);
+            currentLine.setFollowTerrain(true);
+            currentLine.setColor(Color.yellow);
+            currentLine.setLineWidth(1);
+            currentLine.setPathType(Polyline.LINEAR);
+            this.polyLines.addRenderable(currentLine);
+            switch (getCurrentState()) {
+                case STATE_ADD_OBSTACLE:
+                    obstacles.get(obstacles.size() - 1).add(wwd.getCurrentPosition());
+                    break;
+                case STATE_SET_BORDER:
+                    border.add(wwd.getCurrentPosition());
+                    break;
+                case STATE_SET_GOAL:
+                    goal.add(wwd.getCurrentPosition());
+                    break;
+            }
+            setChanged();
+            notifyObservers(MARK_POINT);
+            clearChanged();
         }
-        this.polyLines.removeRenderable(currentLine);
-        currentLine = new Polyline(this.currentSelection);
-        currentLine.setFollowTerrain(true);
-        currentLine.setColor(Color.yellow);
-        currentLine.setLineWidth(1);
-        currentLine.setPathType(Polyline.LINEAR);
-        this.polyLines.addRenderable(currentLine);
-        setChanged();
-        notifyObservers(MARK_POINT);
-        clearChanged();
     }
 
     private void stateSetGoalTo(int state) {
-        switch (getCurrentState()) {
+        switch (state) {
             case STATE_SET_BORDER:
+                border = new ArrayList<Position>();
                 break;
             case STATE_ADD_OBSTACLE:
+                obstacles.add(new ArrayList<Position>());
                 break;
             case STATE_IDLE:
                 break;
@@ -210,12 +227,14 @@ public class HarmonicFieldAlgorithm extends AbstractAlgorithmModel {
     }
 
     private void stateAddObstacleTo(int state) {
-        switch (getCurrentState()) {
+        switch (state) {
             case STATE_SET_BORDER:
+                border = new ArrayList<Position>();
                 break;
             case STATE_IDLE:
                 break;
             case STATE_SET_GOAL:
+                goal = new ArrayList<Position>();
                 break;
         }
     }
